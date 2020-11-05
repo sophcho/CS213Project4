@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane alignment="center" hgap="10" maxHeight="1000.0" maxWidth="500.0" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller2">
+   <children>
+      <FlowPane prefHeight="800.0" prefWidth="500.0">
+         <children>
+            <VBox prefHeight="802.0" prefWidth="500.0">
+               <children>
+                  <Label text="Label" />
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <ListView fx:id="listView" prefHeight="394.0" prefWidth="500.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button mnemonicParsing="false" text="Button" />
+                        <MenuButton mnemonicParsing="false" text="MenuButton">
+                          <items>
+                              <MenuItem mnemonicParsing="false" text="Add" />
+                            <MenuItem mnemonicParsing="false" text="Renmove" />
+                            <MenuItem mnemonicParsing="false" text="Export" />
+                          </items>
+                        </MenuButton>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </FlowPane>
+      <Button mnemonicParsing="false" text="Button" />
+   </children>
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+</GridPane>
