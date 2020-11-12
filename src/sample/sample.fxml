@@ -36,8 +36,8 @@
                   </HBox>
                   <HBox prefHeight="173.0" prefWidth="500.0">
                      <children>
-                        <Label text="Label" />
-                        <TextField fx:id="priceLabel" />
+                        <Label prefHeight="24.0" prefWidth="38.0" text="Price: $" />
+                        <TextField fx:id="priceLabel" prefHeight="25.0" prefWidth="62.0" />
                      </children>
                   </HBox>
                   <Button fx:id="submitButton" mnemonicParsing="false" onAction="#submit" text="Submit" />

@@ -4,6 +4,14 @@ import javafx.scene.image.Image;
 
 public class Chicken extends Sandwich {
 
+    public Chicken (Sandwich sandwich){
+        super(sandwich);
+    }
+
+    public Chicken (){
+        super();
+    }
+
     @Override
     public double price() {
         return 8.99;

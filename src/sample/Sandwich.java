@@ -13,6 +13,11 @@ public abstract class Sandwich implements Customizable {
         extras = new ArrayList<Extra>();
     }
 
+    public Sandwich(Sandwich sandwich){
+        this.extras = new ArrayList<Extra>();
+        this.extras.addAll(sandwich.extras);
+    }
+
     public abstract double price();
     @Override
     public boolean add(Object obj) {
@@ -25,6 +30,7 @@ public abstract class Sandwich implements Customizable {
     public boolean remove(Object obj) {
         return false;
     }
+
 
     public String toString(){
         return null;
