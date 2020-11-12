@@ -26,7 +26,7 @@ public class Controller2 implements Initializable{
     private ListView<Orderline> listView;
 
     private Controller controller1;
-
+    private Stage primaryStage;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -34,18 +34,25 @@ public class Controller2 implements Initializable{
 
     public void receiveController (Controller controller){
         this.controller1 = controller;
-        Order order = controller1.passOrder();
-        ObservableList<Orderline> listItems =
-                FXCollections.observableArrayList(order.passOrderlines());
-        listView.setItems(listItems);
+       updateOrderlines();
     }
-
+    public void setStage(Stage primaryStage){
+        this.primaryStage = primaryStage;
+    }
     @FXML
     void ExitStage2(ActionEvent event) {
-        controller1.getThisStage().setScene(controller1.getThisScene());
-        controller1.getThisStage().show();
+        this.primaryStage.hide();
     }
-
+    public void showStage(){
+        this.primaryStage.show();
+    }
+    public boolean visible(){
+        return primaryStage.isShowing();
+    }
+    public void updateOrderlines(){
+        ObservableList<Orderline> listItems = FXCollections.observableArrayList(controller1.passOrder().passOrderlines());
+        listView.setItems(listItems);
+    }
 
     @FXML
     void ClearOrder(ActionEvent event) {

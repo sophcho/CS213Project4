@@ -35,6 +35,8 @@ public class Controller implements Initializable {
     private TextField priceLabel;
     private Scene thisScene;
 
+    private Controller2 controller2;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ObservableList<Sandwich> sandwichChoices = FXCollections.observableArrayList(new Chicken(), new Beef(), new Fish());
@@ -67,16 +69,30 @@ public class Controller implements Initializable {
 
     @FXML
     public void newStage() throws Exception {
+        //instead of creating a new controller2 instance everytiome we use the same one throughout the program
+       //check if stage is already opened if it is ask user to close it
+       if(controller2 != null){
+            if(controller2.visible()){
+                alertWarning("Order window is open","Please close window before opening another one");
+            }
+            else {
+                controller2.showStage();
+            }
+            return;
+       }
+    //else this is the first time openning the stage
         FXMLLoader loader2 = new FXMLLoader(getClass().getResource("sample2" + ".fxml"));
         Parent part = loader2.load();
         Scene scene = new Scene(part);
 
         //Passing over the controller instance
-        Controller2 controller2 = loader2.getController();
-        controller2.receiveController(this);
-
-        thisStage.setScene(scene);
-        thisStage.show();
+       this.controller2 = loader2.getController();
+        this.controller2.receiveController(this);
+        Stage primaryStage = new Stage();
+        controller2.setStage(primaryStage);
+        primaryStage.setTitle("Orders");
+        primaryStage.setScene(scene);
+        primaryStage.show();
 
 
     }
@@ -150,6 +166,11 @@ public class Controller implements Initializable {
         Orderline orderLine = new Orderline(newSandwich, price);
         if (order.add(orderLine)) {
             System.out.println("hello");
+        }
+
+        //sets orderlines to second window, updates it
+        if(this.controller2 !=null) {
+            controller2.updateOrderlines();
         }
     }
 

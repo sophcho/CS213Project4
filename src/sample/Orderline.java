@@ -10,7 +10,7 @@ public class Orderline {
         this.price = price;
         this.lineNumber = Order.lineNumber;
     }
-
+    //copy constructor
     public Orderline(Orderline orderline){
         this.sandwich = orderline.sandwich;
         this.price = orderline.price;

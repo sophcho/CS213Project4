@@ -28,9 +28,11 @@ public class Order implements Customizable{
         orderlines.remove(obj);
         return true;
     }
-
+    //Data encapsulation :)
     public ArrayList<Orderline> passOrderlines(){
-        return orderlines;
+        ArrayList<Orderline> orderLines = new ArrayList<Orderline>();
+        orderLines.addAll(this.orderlines);
+        return orderLines;
     }
 
 

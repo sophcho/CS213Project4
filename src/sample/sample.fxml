@@ -41,7 +41,7 @@
                      </children>
                   </HBox>
                   <Button fx:id="submitButton" mnemonicParsing="false" onAction="#submit" text="Submit" />
-                  <Button mnemonicParsing="false" onAction="#newStage" text="Button" />
+                  <Button mnemonicParsing="false" onAction="#newStage" text="Show orders" />
                </children>
             </VBox>
          </children>
