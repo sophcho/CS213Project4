@@ -23,6 +23,6 @@ public class Beef extends Sandwich {
     }
     @Override
     public Image sandwichImage(){
-        return new Image("https://media.discordapp.net/attachments/753703688316518465/774075378854527036/unknown.png");
+        return new Image("sample/pictures/Beef.png");
     }
 }

@@ -22,6 +22,6 @@ public class Fish  extends Sandwich{
     }
     @Override
     public Image sandwichImage(){
-        return new Image("https://cdn.discordapp.com/attachments/753703688316518465/774073531838496798/ArbyE28099s-Introduces-New-Beer-Battered-Fish-Sandwich-678x381.png");
+        return new Image("sample/pictures/fish.png");
     }
 }

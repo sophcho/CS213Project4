@@ -81,9 +81,11 @@ public class Controller2 implements Initializable{
             order.remove(selectedLine);
         }
         ArrayList<Orderline> newOrderlines = order.passOrderlines();
-        for (int i = 0; i < order.passOrderlines().size();i++){
+        for (int i = 0; i < newOrderlines.size();i++){
             newOrderlines.get(i).changeLineNumber(i+1);
         }
+        order.lineNumber = newOrderlines.size() +1;
+
         listView.setItems(FXCollections.observableArrayList(order.passOrderlines()));
     }
 
