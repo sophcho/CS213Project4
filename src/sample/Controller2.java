@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
@@ -58,6 +59,7 @@ public class Controller2 implements Initializable{
     void ClearOrder(ActionEvent event) {
         controller1.clearOrder();
         listView.getItems().clear();
+
     }
 
 
@@ -65,6 +67,10 @@ public class Controller2 implements Initializable{
     void AddSameOrder(ActionEvent event) {
         ObservableList<Orderline> selectedLines =
                 listView.getSelectionModel().getSelectedItems();
+        if(selectedLines.size() ==0){
+            alertWarning("Sandwich not selected","Select a Sandwich");
+            return;
+        }
         Order order = controller1.passOrder();
         for (Orderline selectedLine : selectedLines) {
             order.add(new Orderline(selectedLine));
@@ -76,6 +82,10 @@ public class Controller2 implements Initializable{
     void RemoveSelectedOrderline(ActionEvent event) {
         ObservableList<Orderline> selectedLines =
                 listView.getSelectionModel().getSelectedItems();
+        if(selectedLines.size() ==0){
+            alertWarning("Sandwich not selected","Select a Sandwich");
+            return;
+        }
         Order order = controller1.passOrder();
         for (Orderline selectedLine : selectedLines) {
             order.remove(selectedLine);
@@ -93,7 +103,7 @@ public class Controller2 implements Initializable{
     void exportFile(ActionEvent event) throws IOException {
         Order order = controller1.passOrder();
         if (order.passOrderlines().size() == 0) {
-            //print out alert msg
+            alertWarning("No Current Orders", "Add Orders before exporting");
             return;
         }
         FileChooser chooser = new FileChooser();
@@ -102,6 +112,10 @@ public class Controller2 implements Initializable{
                 new FileChooser.ExtensionFilter("All Files", "*.*"));
         Stage stage = new Stage();
         File targetFile = chooser.showSaveDialog(stage);
+        if(targetFile == null){
+            alertWarning("File not selected","Please Select a file");
+            return;
+        }
 
         try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter(targetFile))) {
             ArrayList<Orderline> orderlines = order.passOrderlines();
@@ -109,6 +123,13 @@ public class Controller2 implements Initializable{
                 fileWriter.write(String.valueOf(orderline)+"\n");
             }
         }
+    }
+    private void alertWarning(String Header, String content) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Warning");
+        alert.setHeaderText(Header);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
 

@@ -18,7 +18,7 @@ public class Fish  extends Sandwich{
 
     @Override
     public String toString(){
-        return "Fish";
+        return "Fish Sandwich with: " + super.toString();
     }
     @Override
     public Image sandwichImage(){

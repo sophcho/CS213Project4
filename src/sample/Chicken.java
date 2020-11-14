@@ -19,7 +19,7 @@ public class Chicken extends Sandwich {
 
     @Override
     public String toString(){
-        return "Chicken";
+        return "Chicken Sandwich with: " + super.toString();
     }
     @Override
     public Image sandwichImage(){

@@ -1,7 +1,8 @@
 package sample;
 
-//Fix how we set up the sandwiches to add.
-//Buttons on the 2nd stage  
+/*
+ *
+ */
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -146,14 +147,14 @@ public class Controller implements Initializable {
     void remove(ActionEvent event) {
         Sandwich selected = currentOrder();
         ObservableList<Extra> selectedToppings = selectedToppingsList.getSelectionModel().getSelectedItems();
-        if (selectedToppings.size() == 0) {
-            //show alert
-            return;
+        //Changed remove and add to use add/remove method in sandwich since we never used it
+        if (!selected.remove(selectedToppings)) {
+            alertWarning("No Toppings", "Please select a Topping!");
+        } else {
+            toppingsList.getItems().addAll(selectedToppings);
+            selectedToppingsList.getItems().removeAll(selectedToppings);
+            updatePrice(selected);
         }
-        selected.extras.removeAll(selectedToppings);
-        toppingsList.getItems().addAll(selectedToppings);
-        selectedToppingsList.getItems().removeAll(selectedToppings);
-        updatePrice(selected);
     }
 
     /*Event Handler for adding Ingredients
@@ -165,15 +166,19 @@ public class Controller implements Initializable {
     void add(ActionEvent event) {
         Sandwich selected = currentOrder();
         ObservableList<Extra> selectedToppings = toppingsList.getSelectionModel().getSelectedItems();
-        if (selected.extras.size() == Sandwich.MAX_EXTRAS || selected.extras.size() + selectedToppings.size() > Sandwich.MAX_EXTRAS) {
+        if (selectedToppings.size() ==0) {
+            alertWarning("No Topping Selected", "Please select a Topping");
+        }
+        if(!selected.add(selectedToppings)){
             alertWarning("Max Toppings", "You cannot add more than 6 " +
                     "toppings!");
-            return;
+
         }
-        selected.extras.addAll(selectedToppings);
-        selectedToppingsList.getItems().addAll(selectedToppings);
-        toppingsList.getItems().removeAll(selectedToppings);
-        updatePrice(selected);
+        else {
+            selectedToppingsList.getItems().addAll(selectedToppings);
+            toppingsList.getItems().removeAll(selectedToppings);
+            updatePrice(selected);
+        }
     }
 
     /* Helper method that returns currently selected Sandwich form ComboBox
@@ -191,6 +196,11 @@ public class Controller implements Initializable {
         priceLabel.setText(String.format("%.2f", price));
     }
 
+    /*Event Handler method for Submit Button
+     *creates a new orderLine based on sandwich and ingredients selected and adds the orderLine to the order
+     * Updates SecondStage Order Window if it exists.
+     * @param event ActionEvent generated when the button is clicked.
+     */
     @FXML
     void submit(ActionEvent event) throws Exception {
         Sandwich selected = currentOrder(), newSandwich;
@@ -231,8 +241,9 @@ public class Controller implements Initializable {
         order = new Order();
     }
 
-    /*
-     *
+    /* Helper Method used to display Alerts
+     *@param Header Alert Header to display
+     * @param content Text to display within Alert
      */
     private void alertWarning(String Header, String content) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
