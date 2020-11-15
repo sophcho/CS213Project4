@@ -1,5 +1,4 @@
 package sample;
-
 import javafx.scene.image.Image;
 
 public class Chicken extends Sandwich {
@@ -19,10 +18,15 @@ public class Chicken extends Sandwich {
 
     @Override
     public String toString(){
-        return "Chicken Sandwich with: " + super.toString();
+        return "Chicken";
     }
+
     @Override
     public Image sandwichImage(){
         return new Image("sample/pictures/chicken.png");
+    }
+
+    public String basicIngredients(){
+        return "Fried Chicken, Spicy Sauce, Pickles";
     }
 }

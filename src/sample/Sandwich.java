@@ -1,5 +1,4 @@
 package sample;
-
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 public abstract class Sandwich implements Customizable {
     static final int MAX_EXTRAS = 6;
     static final double PER_EXTRA = 1.99;
-    protected ArrayList<Extra> extras; //Container for Extra Objects
+    protected ArrayList<Extra> extras;
 
     /*Default Constructor that instantiates Extra Container Array
      *Called from Classes that inherit Sandwich
@@ -28,7 +27,6 @@ public abstract class Sandwich implements Customizable {
         this.extras = new ArrayList<Extra>();
         this.extras.addAll(sandwich.extras);
     }
-
     //Abstract Method to be implemented by Subclasses
     public abstract double price();
 
@@ -66,10 +64,9 @@ public abstract class Sandwich implements Customizable {
         return true;
     }
 
-
     public String toString() {
         return this.extras.toString();
     }
 
-
+    public abstract String basicIngredients();
 }

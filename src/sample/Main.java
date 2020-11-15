@@ -17,7 +17,7 @@ public class Main extends Application {
         //Controller controller1 = loader1.getController();
         //controller1.setThisStage(primaryStage);
         primaryStage.setTitle("Sandwich Shop");
-        Scene scene = new Scene(part, 500, 800);
+        Scene scene = new Scene(part, 807, 354);
         //controller1.setThisScene(scene);
         primaryStage.setScene(scene);
         primaryStage.show();

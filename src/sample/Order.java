@@ -1,5 +1,6 @@
 package sample;
 import java.util.ArrayList;
+
 public class Order implements Customizable{
     public static int lineNumber;
     private ArrayList<Orderline> orderlines;
@@ -25,16 +26,12 @@ public class Order implements Customizable{
         if (!(obj instanceof Orderline)){
             return false;
         }
-        orderlines.remove(obj);
-        return true;
+        return orderlines.remove(obj);
     }
-    //Data encapsulation :)
+
     public ArrayList<Orderline> passOrderlines(){
         ArrayList<Orderline> orderLines = new ArrayList<Orderline>();
         orderLines.addAll(this.orderlines);
         return orderLines;
     }
-    
-
-
 }

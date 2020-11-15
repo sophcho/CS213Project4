@@ -18,9 +18,9 @@ public class Orderline {
     }
 
     public String toString(){
-        return String.format("%d: %s, %f", lineNumber,
-                sandwich, sandwich.extras.toString()
-                , price);
+        return String.format("Order %d: %s Sandwich with %s and %s, $%.2f",
+                lineNumber,
+                sandwich, sandwich.basicIngredients(), sandwich.extras, price);
     }
 
     public void changeLineNumber(int i){
