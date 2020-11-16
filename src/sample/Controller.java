@@ -1,7 +1,4 @@
 package sample;
-/*
- *
- */
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +16,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/* Controller Class loaded by FXML file and handles events generated through user interactions with GUI.
+ *Scene Builder is used to connect GUI to Contoller.java.
+ * @author Mohamed Moussa, Sophia Cho
+ */
 public class Controller implements Initializable {
 
     @FXML
@@ -34,8 +35,8 @@ public class Controller implements Initializable {
     private Controller2 controller2;
 
     /**
-     * Implements Initializable Abstract method
-     * Initialize method is automatically called by FXML loader when the controller is first invoked
+     * Implements Initializable Abstract method.
+     * Initialize method is automatically called by FXML loader when the controller is first invoked.
      * Sets sandwich choices and extra toppings listviews along with default set to chicken.
      *
      * @param url URL used to resolve relative paths for the root object, null if the location is not known
@@ -45,7 +46,11 @@ public class Controller implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         ObservableList<Sandwich> sandwichChoices = FXCollections.observableArrayList(new Chicken(), new Beef(), new Fish());
-        ObservableList<Extra> extraToppings = FXCollections.observableArrayList(new Extra("Tomato"), new Extra("Onions"), new Extra("Extra meat"), new Extra("Lettuce"), new Extra("Extra Cheese"), new Extra("Mushrooms"), new Extra("Bacon"), new Extra("Mustard"), new Extra("Ketchup"), new Extra("Red Peppers"));
+        ObservableList<Extra> extraToppings = FXCollections.observableArrayList(new Extra("Tomato"), new Extra("Onions"),
+                new Extra("Extra meat"), new Extra("Lettuce"), new Extra("Extra Cheese"),
+                new Extra("Mushrooms"), new Extra("Bacon"), new Extra("Mustard"),
+                new Extra("Ketchup"),
+                new Extra("Red Peppers"));
 
         LabelOptions.setItems(sandwichChoices);
         LabelOptions.setValue(sandwichChoices.get(0));
@@ -59,7 +64,7 @@ public class Controller implements Initializable {
 
     /**
      * Event Handler method for Show Orders Button.
-     * Instantiates controller2 instance if null and creates a new stage to display Orderlines
+     * Instantiates controller2 instance if null and creates a new stage to display Orderlines.
      * Displays an alert if a Orderline Stage is already openned. Stage is hidden and displayed using show and hide stage.
      * IOException is required in signature for the FXMLloader to load parent Node.
      *
@@ -67,9 +72,7 @@ public class Controller implements Initializable {
      */
     @FXML
     public void newStage(ActionEvent event) throws IOException {
-        //instead of creating a new controller2 instance everytiome we use the same one throughout the program
-        //check if stage is already opened if it is ask user to close it
-        if (controller2 != null) {
+        if (controller2 != null) { //if secondStage is created, does not create another stage
             if (controller2.visible()) {
                 alertWarning("Order window is open", "Please close window before opening another one");
             } else {
@@ -77,12 +80,11 @@ public class Controller implements Initializable {
             }
             return;
         }
-        //else this is the first time openning the stage
+
         FXMLLoader loader2 = new FXMLLoader(getClass().getResource("sample2" + ".fxml"));
         Parent part = loader2.load();
         Scene scene = new Scene(part);
 
-        //Passing over the controller instance
         this.controller2 = loader2.getController();
         this.controller2.receiveController(this);
         Stage primaryStage = new Stage();
@@ -95,9 +97,9 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Event Handler Method for Combo Selections
+     * Event Handler Method for Combo Selections.
      * Price and Image are set based on sandwich selected.
-     * Toppings Previously selected are set to this sandwich as well
+     * Toppings Previously selected are set to this sandwich as well.
      *
      * @param event ActionEvent created when comboBox item is selected.
      */
@@ -109,7 +111,6 @@ public class Controller implements Initializable {
         ObservableList<Extra> selectedToppings = selectedToppingsList.getItems();
         sandwich.extras.addAll(selectedToppings);
         updatePrice(sandwich);
-        //display ingredients
 
         basicIngredients.setText(sandwich.basicIngredients());
 
@@ -117,7 +118,7 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Event Handler method for Remove Ingredients Button
+     * Event Handler method for Remove Ingredients Button.
      * Shows Alert if there aren't any selected toppings, else removes ingredients and updates price.
      *
      * @param event ActionEvent created when Remove Button is clicked.
@@ -126,7 +127,6 @@ public class Controller implements Initializable {
     void remove(ActionEvent event) {
         Sandwich selected = currentOrder();
         ObservableList<Extra> selectedToppings = selectedToppingsList.getSelectionModel().getSelectedItems();
-        //Changed remove and add to use add/remove method in sandwich since we never used it
         if (!selected.remove(selectedToppings)) {
             alertWarning("No Toppings Selected", "Please select a Topping!");
         } else {
@@ -137,7 +137,7 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Event Handler for adding Ingredients
+     * Event Handler for adding Ingredients.
      * If Toppings selected are  result in more than 6 toppings on a Sandiwch an alert is displayed and program exits.
      * else toppings are placed on the Sandwich and displayed on GUI,price is updated accordingly.
      *
@@ -161,7 +161,7 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Helper method that returns currently selected Sandwich form ComboBox
+     * Helper method that returns currently selected Sandwich form ComboBox.
      *
      * @return sandwich instance selected.
      */
@@ -170,8 +170,7 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Helper Method that updatesPrice for priceLabel when ingridents are
-     * added or sandwich selected is switched.
+     * Helper Method that updatesPrice for priceLabel when ingredients are added or sandwich selected is switched.
      *
      * @param sandwich Sandwich instance selected.
      */
@@ -181,8 +180,8 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Event Handler method for Submit Button
-     * creates a new orderLine based on sandwich and ingredients selected and adds the orderLine to the order
+     * Event Handler method for Submit Button.
+     * Creates a new orderLine based on sandwich and ingredients selected and adds the orderLine to the order.
      * Updates SecondStage Order Window if it exists.
      *
      * @param event ActionEvent generated when the button is clicked.
@@ -213,8 +212,8 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Getter Method the returns Order Instance
-     * Used by Controller2 to access Orders
+     * Getter Method the returns Order Instance.
+     * Used by Controller2 to access Orders.
      *
      * @return Order current Order instance
      */
@@ -223,8 +222,8 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Helper Method used when Clear Orders Button is pressed
-     * Creates a new Order instance, erasing all of the previous Order Information
+     * Helper Method used when Clear Orders Button is pressed.
+     * Creates a new Order instance, erasing all of the previous Order Information.
      * Called by Controller2 in the process of clearing Orders.
      */
     public void clearOrder() {
@@ -232,7 +231,7 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Helper Method used to display Alerts
+     * Helper Method used to display Alerts.
      *
      * @param Header  Alert Header to display
      * @param content Text to display within Alert
